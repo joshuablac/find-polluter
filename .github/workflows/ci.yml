@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  fixtures:
+    name: ${{ matrix.runner }} / node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [jest, vitest]
+        node: [22, 24]
+    defaults:
+      run:
+        working-directory: fixtures/${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: fixtures/*/package-lock.json
+      - run: npm ci
+      - name: Polluters are found (exit 1), control file is clean (exit 0)
+        shell: bash
+        run: |
+          dir=$([ "${{ matrix.runner }}" = jest ] && echo __tests__ || echo tests)
+          fail=0
+          for name in cache env spy timers random; do
+            expected=1; [ "$name" = random ] && expected=0
+            set +e
+            node ../../bin/find-polluter.js "$dir/$name.test.js"
+            code=$?
+            set -e
+            echo "::notice::$name.test.js -> exit $code (expected $expected)"
+            [ "$code" -eq "$expected" ] || { echo "::error::$name.test.js exited $code, expected $expected"; fail=1; }
+          done
+          exit $fail

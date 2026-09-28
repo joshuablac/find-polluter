@@ -1,5 +1,8 @@
 # find-polluter
 
+[![CI](https://github.com/joshuablac/find-polluter/actions/workflows/ci.yml/badge.svg)](https://github.com/joshuablac/find-polluter/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **"Passes alone, fails in the suite" → one command.**
 
 When a Jest or Vitest test fails only because an *earlier test in the same file* leaked state

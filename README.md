@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/joshuablac/find-polluter/actions/workflows/ci.yml/badge.svg)](https://github.com/joshuablac/find-polluter/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/find-polluter)](https://www.npmjs.com/package/find-polluter)
 
 **"Passes alone, fails in the suite" → one command.**
 

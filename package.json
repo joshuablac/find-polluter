@@ -1,0 +1,12 @@
+{
+  "name": "find-polluter",
+  "version": "0.1.0",
+  "description": "Find the earlier test that pollutes shared state and makes a later Jest/Vitest test fail. Deterministic delta debugging, zero dependencies.",
+  "bin": { "find-polluter": "bin/find-polluter.js" },
+  "files": ["bin/"],
+  "engines": { "node": ">=18" },
+  "keywords": ["jest", "vitest", "test-pollution", "flaky-tests", "order-dependent", "bisect", "delta-debugging"],
+  "author": "joshuablac",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/joshuablac/find-polluter.git" }
+}
